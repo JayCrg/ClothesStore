@@ -74,6 +74,7 @@ main{
     flex-direction: column;
     align-items: right;
     justify-content: center;
+    margin-left: 1rem;
 }
 .textoEslogan h1{
     font-size: 3rem;
@@ -87,7 +88,7 @@ main{
 }
 .textoEslogan button{
     align-self: flex-end;
-    width: 50%;
+    width: 55%;
     font-size: 1.5rem;
     color: var(--primary-color);
     background-color: var(--quaternary-color);
@@ -106,8 +107,13 @@ main{
 #carrusel{
     grid-column: 2/-2;
     grid-row: 3/4;
+    display: grid;
+    grid-template-columns: minmax(3rem, 1fr) repeat(8, minmax(min-content, 26rem)) minmax(3rem, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
 }
 #imagenesCarrusel{
+    grid-column: 2/-2;
+    grid-row: 1/4;
     width: 100%;
     height: 100%;
 }
@@ -118,6 +124,25 @@ main{
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.5);
 }
+.fa-arrow-right{
+    grid-column: 10/11;
+    grid-row: 2/3;
+    align-self: center;
+    justify-self: center;
+    font-size: 4rem;
+    color: var(--quaternary-color);
+    cursor: pointer;
+}
+.fa-arrow-left{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    align-self: center;
+    justify-self: center;
+    font-size: 4rem;
+    color: var(--quaternary-color);
+    cursor: pointer;
+}
+
 
 #siguenos{
     grid-column: 1/-1;
@@ -241,21 +266,22 @@ nav ul li:hover{
     list-style: none;
     margin-right: 2.5rem;
 }
-.log-shop ul li:first-child{
+.log-shop ul button{
     padding: 0.7rem 1.5rem;
+    border:none;
     border-radius: 0.2rem;
     background-color: var( --tertiary-color);
     color: white;
     font-size: large;
 }
-.log-shop ul li:first-child:hover{
+.log-shop ul button:hover{
     background-color: var(--quaternary-color);
     cursor: pointer;
 }
-.log-shop ul li:last-child{
+.log-shop ul li{
     font-size: 2.3rem;
 }
-.log-shop ul li:last-child:hover{
+.log-shop ul li:hover{
     cursor: pointer;
 }
 .cantidadProductos{
