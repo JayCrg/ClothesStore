@@ -11,6 +11,7 @@
     --secondary-color: #D6E4E5;
     --tertiary-color: #497174;
     --quaternary-color: #EB6440;
+    --quinary-color: #F2B134;
     font-family: 'Josefin Sans', sans-serif;
 }
 body{
@@ -23,6 +24,9 @@ body{
     grid-template-rows: repeat(3, minmax(min-content, 14rem));
     background-color: var(--primary-color);
 }
+.color{
+    color: var(--quinary-color);
+}
 /*****************************************/
 main{
     grid-column: 1/ -1;
@@ -31,7 +35,7 @@ main{
     display: grid;
     grid-template-columns: repeat(8, minmax(min-content, 26rem));
     grid-template-rows: repeat(5, minmax(min-content, 14rem));
-    gap: 1rem;
+    gap: 2rem;
 }
 #hero{
     grid-column: 1/ -1;
@@ -109,17 +113,17 @@ main{
     grid-row: 3/4;
     display: grid;
     grid-template-columns: minmax(3rem, 1fr) repeat(8, minmax(min-content, 26rem)) minmax(3rem, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 #imagenesCarrusel{
     grid-column: 2/-2;
-    grid-row: 1/4;
+    grid-row: 1/2;
     width: 100%;
     height: 100%;
 }
 #carrusel img{
-    width: 100%;
-    height: 100%;
+    width: inherit;
+    height: inherit;
     object-fit:cover;
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.5);
@@ -145,13 +149,105 @@ main{
 
 
 #siguenos{
-    grid-column: 1/-1;
+    grid-column: 2/-2;
     grid-row: 4/5;
+    display: grid;
+    grid-template-columns:  1fr repeat(3, minmax(5rem, 26rem)) 1fr;
+    grid-template-rows: 1fr;
+}
+.textoRedes{
+    grid-column: 7/8;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    justify-items: center;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-left: 2rem;
+}
+.textoRedes .iconos a i{
+    color: var(--primary-color);
+}
+.textoRedes .iconos{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: larger;
+}
+.textoRedes .iconos a:hover{
+    color: var(--quinary-color);
+}
+.imageneRedes.ropa{
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+.imageneRedes.ropa2{
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+.imageneRedes.ropa3{
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+.imageneRedes img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    border-radius: 0.5rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.5);
 }
 #contacto{
     grid-column: 2/-2;
     grid-row: 5/6;
+    display: grid;
+    margin-bottom: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
 }
+#contacto h1{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+#contacto p{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+#contacto input{
+    grid-column: 2/3;
+    grid-row: 3/4;
+    align-self: center;
+    font-size: 1.5rem;
+    background-color: var(--primary-color);
+    border: none;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+}
+#contacto input:valid{
+    background-color: lightgreen
+}
+#contacto input:invalid{
+    background-color: lightcoral
+}
+
+#contacto button{
+    grid-column: 2/3;
+    grid-row: 4/5;
+    align-self: left;
+    border-radius: 1rem;
+}
+
+
+
 /**************************************/
 footer{
     grid-column: 1/ -1;
