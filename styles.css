@@ -16,7 +16,7 @@
 }
 body{
     width: 100vw;
-    max-width: 2000px;
+    /* max-width: 2000px; */
 }
 .container{
     display: grid;
@@ -176,7 +176,7 @@ main{
     margin-top: 1rem;
     font-size: larger;
 }
-.textoRedes .iconos a:hover{
+.textoRedes .iconos a i:hover{
     color: var(--quinary-color);
 }
 .imageneRedes.ropa{
@@ -203,11 +203,11 @@ main{
     grid-row: 5/6;
     display: grid;
     margin-bottom: 1rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr repeat(3, minmax(min-content, 10rem)) 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 #contacto h1{
-    grid-column: 2/3;
+    grid-column: 1/-1;
     grid-row: 1/2;
     font-size: 3rem;
     color: var(--primary-color);
@@ -215,7 +215,7 @@ main{
     margin-bottom: 1rem;
 }
 #contacto p{
-    grid-column: 2/3;
+    grid-column: 1/-1;
     grid-row: 2/3;
     font-size: 1.5rem;
     color: var(--primary-color);
@@ -223,7 +223,7 @@ main{
     margin-bottom: 1rem;
 }
 #contacto input{
-    grid-column: 2/3;
+    grid-column: 2/5;
     grid-row: 3/4;
     align-self: center;
     font-size: 1.5rem;
@@ -232,18 +232,17 @@ main{
     padding: 1rem 1rem;
     margin-bottom: 1rem;
 }
-#contacto input:valid{
-    background-color: lightgreen
-}
 #contacto input:invalid{
     background-color: lightcoral
 }
-
 #contacto button{
-    grid-column: 2/3;
+    grid-column: 4/5;
     grid-row: 4/5;
-    align-self: left;
+    justify-self: right;
+    font-size: 1.5rem;
     border-radius: 1rem;
+    height: 75%;
+    width: 75%;
 }
 
 
@@ -274,9 +273,6 @@ footer ul{
     gap: 1rem;
     list-style: none;
     margin-left: 1rem;
-}
-#metodoPago{
-    margin-right: 1rem;
 }
 #metodoPago ul{
     display: flex;
@@ -382,7 +378,7 @@ nav ul li:hover{
 }
 .cantidadProductos{
     display: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 .cantidadProductos.llena{
     display: inline-flex;
@@ -403,3 +399,63 @@ nav ul li:hover{
     }
 }
 
+/******************************************/
+/*PRODUCTOS*/
+
+main.productos{
+    grid-column: 1/ -1;
+    grid-row: 2/3;
+    background-color: var(--tertiary-color);
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2rem;
+}
+#presentacion{
+    margin-top: 2rem;
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#presentacion h1{
+    text-align: center;
+    font-size: 3.5rem;
+    color: var(--primary-color);
+}
+#listadoProductos{
+    grid-column: 2/-2;
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));    
+    grid-auto-rows: minmax(5rem,50rem);
+    gap: 5rem;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+#listadoProductos .producto{
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 1rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0 var(--primary-color);    
+}
+#listadoProductos .producto:hover{
+    cursor: pointer;
+}
+#listadoProductos .producto .imagenProducto{
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+}
+
+.imagenProducto img{
+    width: inherit;
+    height: inherit;
+    object-fit: fill;
+    border-radius: 10%;
+}
