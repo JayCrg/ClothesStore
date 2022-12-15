@@ -426,11 +426,12 @@ main.productos{
     color: var(--primary-color);
 }
 #listadoProductos{
+    max-width: 1200px;
     grid-column: 2/-2;
     grid-row: 2/3;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));    
-    grid-auto-rows: minmax(5rem,50rem);
+    grid-template-columns: repeat(auto-fill,minmax(25rem,1fr));    
+    grid-auto-rows: minmax(5rem,35rem);
     gap: 5rem;
     justify-items: center;
     align-items: center;
@@ -456,6 +457,6 @@ main.productos{
 .imagenProducto img{
     width: inherit;
     height: inherit;
-    object-fit: fill;
+    object-fit: fill    ;
     border-radius: 10%;
 }
