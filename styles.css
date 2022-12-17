@@ -16,7 +16,8 @@
 }
 body{
     width: 100vw;
-    /* max-width: 2000px; */
+    margin: 0 auto;
+    max-width: 2000px;
 }
 .container{
     display: grid;
@@ -27,6 +28,27 @@ body{
 .color{
     color: var(--quinary-color);
 }
+aside{
+display: none;
+font-size: 5rem;
+}
+aside.carga{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    opacity: 0.8;
+    width: 100%;
+    height: 150%;
+}
+
+body.carga{
+    overflow: hidden;
+}
+
 /*****************************************/
 main{
     grid-column: 1/ -1;
@@ -128,7 +150,7 @@ main{
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.5);
 }
-.fa-arrow-right{
+/* .fa-arrow-right{
     grid-column: 10/11;
     grid-row: 2/3;
     align-self: center;
@@ -145,7 +167,7 @@ main{
     font-size: 4rem;
     color: var(--quaternary-color);
     cursor: pointer;
-}
+} */
 
 
 #siguenos{
@@ -407,7 +429,7 @@ main.productos{
     grid-row: 2/3;
     background-color: var(--tertiary-color);
     display: grid;
-    grid-template-rows: min-content 1fr;
+    grid-template-rows: min-content minmax(50rem,1fr);
     grid-template-columns: repeat(8, 1fr);
     gap: 2rem;
 }
@@ -426,13 +448,14 @@ main.productos{
     color: var(--primary-color);
 }
 #listadoProductos{
-    max-width: 1200px;
     grid-column: 2/-2;
     grid-row: 2/3;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(25rem,1fr));    
     grid-auto-rows: minmax(5rem,35rem);
     gap: 5rem;
+    /*centra a los productos*/
     justify-items: center;
     align-items: center;
     margin-bottom: 5rem;
@@ -453,10 +476,33 @@ main.productos{
     border-radius: 1rem 1rem 0 0;
     overflow: hidden;
 }
-
 .imagenProducto img{
     width: inherit;
     height: inherit;
     object-fit: fill    ;
     border-radius: 10%;
 }
+
+.ordenar select{
+    padding: 0.7rem 1.5rem;
+    border:none;
+    border-radius: 0.2rem;
+    background-color: var( --primary-color);
+    color: var(--tertiary-color);
+    font-size: large;
+    border-radius: 1rem;
+    margin:1rem
+}
+.ordenar{
+
+}
+.ordenar select:hover{
+    background-color: var(--quaternary-color);
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+.ordenar span{
+    font-size: 2.3rem;
+    color: var(--primary-color);
+}
+
