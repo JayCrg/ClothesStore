@@ -12,6 +12,7 @@
     --tertiary-color: #497174;
     --quaternary-color: #EB6440;
     --quinary-color: #F2B134;
+    --auxQuinary-color: #cb932c;
     font-family: 'Josefin Sans', sans-serif;
 }
 body{
@@ -465,22 +466,34 @@ main.productos{
     height: 100%;
     background-color: var(--secondary-color);
     border-radius: 1rem;
-    box-shadow: 0.2rem 0.2rem 0.2rem 0 var(--primary-color);    
+    box-shadow: 0.2rem 0.2rem 0.2rem 0 var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    
 }
 #listadoProductos .producto:hover{
     cursor: pointer;
 }
 #listadoProductos .producto .imagenProducto{
     width: 100%;
-    height: 100%;
+    height: 90%;
     border-radius: 1rem 1rem 0 0;
-    overflow: hidden;
+    margin-bottom: -3.5rem;
+}
+#listadoProductos .producto p{
+    font-size: 1.5rem;
+    margin: 0;
 }
 .imagenProducto img{
     width: inherit;
     height: inherit;
-    object-fit: fill    ;
+    object-fit: fill;
     border-radius: 10%;
+    display: flex;
 }
 
 .ordenar select{
@@ -493,9 +506,6 @@ main.productos{
     border-radius: 1rem;
     margin:1rem
 }
-.ordenar{
-
-}
 .ordenar select:hover{
     background-color: var(--quaternary-color);
     cursor: pointer;
@@ -504,5 +514,92 @@ main.productos{
 .ordenar span{
     font-size: 2.3rem;
     color: var(--primary-color);
+}
+/*******************************************/
+/*DETALLE PRODUCTO*/
+main.detalle{
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: min-content minmax(50rem,1fr);
+}
+.detalle section{
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    gap: 2rem;
+    background-color: var(--tertiary-color);
+    margin-bottom: 2rem;
+}
+.detalle section .imagenProducto{
+    grid-column: 1/4;
+    grid-row:2/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0 var(--primary-color);
+    padding: 1rem;
+    background-color: var(--secondary-color);
+
+}
+.detalle section .imagenProducto img{
+    width: 90%;
+    height: 80%;
+    object-fit: fill;
+    display: flex;
+}
+.detalle section .textoProducto{
+    grid-column: 1/4;
+    grid-row: 3/4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+}
+.detalle section .textoProducto p{
+    font-size: 1.5rem;
+    margin: 0;
+    color: black;
+}
+.detalle section .textoProducto h1{
+    font-size: 3.5rem;
+    color: var(--tertiary-color);
+}
+.detalle section .textoProducto p:first-of-type{
+    font-size: 2rem;
+    color: var(--quaternary-color);
+}
+.detalle section .textoProducto select{
+    padding: 0.7rem 1.5rem;
+    border:none;
+    background-color: var( --primary-color);
+    color: var(--tertiary-color);
+    font-size: large;
+    border-radius: 1rem;
+    margin:1rem;
+    border: 1px solid var(--tertiary-color);
+}
+.detalle section .textoProducto select:hover{
+    background-color: var(--quaternary-color);
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+.detalle section .textoProducto button{
+    padding: 0.7rem 1.5rem;
+    border:none;
+    border-radius: 0.2rem;
+    background-color: var( --primary-color);
+    color: var(--tertiary-color);
+    font-size: large;
+    margin:1rem;
+    border: 1px solid var(--tertiary-color);
+}
+.detalle section .textoProducto button:hover{
+    background-color: var(--quinary-color);
+    cursor: pointer;
+}
+.detalle section .textoProducto button:active{
+    background-color: var(--auxQuinary-color);
+    cursor: pointer;
 }
 

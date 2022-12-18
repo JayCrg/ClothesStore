@@ -53,14 +53,13 @@ function asignarBotones(vista, modelo) {
   $('#inicio').click(function () {
     $("main").empty();
     vista.vistaFormulario();
-    $('.inputs.login button').click(function () {
-      modelo.setUsuario($('.inputs.login input[type="password"]').val());
+    $('.inputs.sign button').click(function () {
       promesa = modelo.signUp();
       promesa.then(res=>res.json()).then(json=>{
+        if($('.inputs.sign input[type="password"]').val() == 'undefined' || $('.inputs.sign input[type="password"]').val() == null || $('.inputs.sign input[type="password"]').val() == '')
+          vista.mostrarMensajeError()
         if(json.id == 1 || json.id == 11)
           vista.mostarMensajeBienvenida()
-        else
-        vista.mostrarMensajeError(json.message)
       })
     });
     $('.inputs.sign button').click(function () {});
@@ -360,18 +359,18 @@ class Vista {
         $(`#${json[i].id}`).append(`<div class='imagenProducto ${json[i].id}'></div>`);
         $(`.imagenProducto.${json[i].id}`).append(`<img src="${json[i].image}" alt="${json[i].title}">`);
         $(`#${json[i].id}`).append(`<h2>${json[i].title}</h2>`);
-        $(`#${json[i].id}`).append(`<p>${json[i].price}</p>`);
+        $(`#${json[i].id}`).append(`<p>Price: ${json[i].price}€</p>`);
       }
     }
 
   vistaDetalle(json) {
     $('main').attr('class', 'detalle');
-    this.main.append(`<section id="presentacion"></section>`);
-    $("#presentacion").append(`<div class='imagenProducto'></div>`);
+    this.main.append(`<section id="especificaciones"></section>`);
+    $("#especificaciones").append(`<div class='imagenProducto'></div>`);
     $(".imagenProducto").append(`<img src="${json.image}" alt="${json.title}">`);
-    $("#presentacion").append(`<div class='textoProducto'></div>`);
+    $("#especificaciones").append(`<div class='textoProducto'></div>`);
     $(".textoProducto").append(`<h1>${json.title}</h1>`);
-    $(".textoProducto").append(`<p>${json.price}</p>`);
+    $(".textoProducto").append(`<p>${json.price}€</p>`);
     $(".textoProducto").append(`<p>${json.description}</p>`);
     if (json.category.includes('clothing')) {
       $(".textoProducto").append(`<select class="tallas"></select>`);
@@ -415,25 +414,47 @@ class Vista {
   vistaFormulario(){
     $('main').attr('class', 'formulario');
     (this.main).append(`<div id=login></div>`);
-    $('#login').append(`<section><h1>Don't you have any account yet? <span class="color">Sign Up</span></h1></section>`);
+    $('#login').append(`<section><h1>Already have an account? <span class='color'>Log in</span></h1></section>`);
     $('#login').append(`<section class='inputs login'></section>`);
-    $('.inputs.login').append(`<input type="text" name="nombre" id="nombre" required placeholder='Name'>`);
-    $('.inputs.login').append(`<input type="password" name="password" id="password" placeholder='Password' required>`);
-    $('.inputs.login').append(`<input type="email" name="email" placeholder='Email' id="email" required pattern="${this.pattern}">`);
-    $('.inputs.login').append(`<input type="tel" name="telefono" pattern="[0-9]{9}" id="telefono" required placeholder='Phone Number'>`);
+    $('.inputs.login').append(`<input type="email" name="email" id="emailsign" placeholder="Your Email" pattern="${this.pattern}" required>`);
+    $('.inputs.login').append(`<input type="password" name="password" id="passwordsign" placeholder="Password" required>`);
     $('.inputs.login').append(`<button>Send</button>`);
-    $('.inputs.login').append(`<div class='welcome login'>Welcome you <span class='color'>Favourite Store</span></div>`);
-
-
+    // $('.inputs.login').append(`<div class='welcome login'>Welcome you <span class='color'>Favourite Store</span></div>`);
+    
+    
     this.main.append(`<div id='signup'></div>`);
-    $('#signup').append(`<section><p>Already have an account? <span class='color'>Log in</span></p></section>`);
+    $('#signup').append(`<section><h1>Don't you have any account yet? <span class="color">Sign Up</span></h1></section>`);
     $('#signup').append(`<section class='inputs sign'></section>`);
-    $('.inputs.sign').append(`<input type="email" name="email" id="emailsign" placeholder="Your Email" pattern="${this.pattern}" required>`);
-    $('.inputs.sign').append(`<input type="password" name="password" id="passwordsign" placeholder="Password" required>`);
+    this.main.append(`<div class='welcome sign'>Welcome back to your <span class='color'>Favourite Store</span></div>`);
+    $('.inputs.sign').append(`<input type="text" name="nombre" id="nombre" required placeholder='Name'>`);
+    $('.inputs.sign').append(`<input type="password" name="password" id="password" placeholder='Password' required>`);
+    $('.inputs.sign').append(`<input type="email" name="email" placeholder='Email' id="email" required pattern="${this.pattern}">`);
+    $('.inputs.sign').append(`<input type="tel" name="telefono" pattern="[0-9]{9}" id="telefono" required placeholder='Phone Number'>`);
     $('.inputs.sign').append(`<button>Send</button>`);
-    $('.inputs.sign').append(`<div class='welcome sign'>Welcome back to your <span class='color'>Favourite Store</span></div>`);
-
+    $('.inputs.sign').append(`<div class='error sign'>Try inserting a Password</div>`);
   }
+  mostarMensajeBienvenida(){
+    $('.welcome.sign').css('display', 'block');
+    $('.welcome.sign').css('opacity', '1');
+
+    setTimeout(function(){
+      $('.welcome.sign').css('opacity', '0');
+      setTimeout(function(){
+        $('.welcome.sign').css('display', 'none');
+      }, 1000);
+    }, 3000);
+  }
+  mostrarMensajeError(){
+    $('.error.sign').css('display', 'block');
+    $('.error.sign').css('opacity', '1');
+    setTimeout(function(){
+      $('.error.sign').css('opacity', '0');
+      setTimeout(function(){
+        $('.error.sign').css('display', 'none');
+      }, 1000);
+    }, 3000);
+  }
+
 
   rotarCarrusel(carrusel) {
     let i = 0;
