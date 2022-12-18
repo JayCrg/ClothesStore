@@ -641,24 +641,25 @@ main.carrito{
     justify-content: center;
     gap: 1rem;
     padding: 1rem;
+    margin-top: 2rem;
     background-color: var(--secondary-color);
 }
 .carrito section:first-child + section .producto .info p{
     font-size: 2rem;
-    margin: 0;
     color: black;
+}
+.cambiarCantidad{
+    margin-top: 1rem;
 }
 .restar{
     background-color: var(--tertiary-color);
     border-radius: 30%;
     padding: 0.5rem;
-    margin-bottom: 0.5rem;
 }
 .sumar{
     background-color: var(--tertiary-color);
     border-radius: 30%;
     padding: 0.5rem;
-    margin-top: 0.5rem;
 }
 .restar:hover{
     cursor: pointer;
@@ -707,13 +708,19 @@ main.carrito{
 }
 .carrito section:last-child p{
     font-size: 2rem;
-    color: var(--quaternary-color);
-}
-.carrito section:last-child:before{
-    content: "Total: ";
-    font-size: 2rem;
     color: var(--primary-color);
-} 
+}
+.tallaje{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-self: center;
+    justify-self: center;
+    font-size: 3rem;
+    margin-top: 1rem;
+}
+
 .carrito section:last-child button{
     grid-column: 1/2;
     grid-row: 1/2;

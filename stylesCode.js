@@ -395,7 +395,7 @@ class Vista {
       $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<div class="info ${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}"></div>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<h2>${modelo.getCarrito()[i].nombre}</h2>`);
       if (modelo.getCarrito()[i].talla != '')
-        $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p>Size: ${modelo.getCarrito()[i].talla}</p>`);
+        $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='tallaje'>Size: ${modelo.getCarrito()[i].talla}</p>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p>${modelo.getCarrito()[i].precio}</p>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='cantProd'>Quantity: ${modelo.getCarrito()[i].cantidad}</p>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<div class="cambiarCantidad ${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}"></div>`);
@@ -404,7 +404,7 @@ class Vista {
       $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='eliminar' title='Eliminar Producto'><i class="fa-solid fa-trash"></i></p>`);
     }
     this.main.append(`<section id="totalCarrito"></section>`);
-    $("#totalCarrito").append(`<p>${Math.round((modelo.getCarritoTotal() + Number.EPSILON) * 100) / 100}`);
+    $("#totalCarrito").append(`<p>Total: <span class="color">${Math.round((modelo.getCarritoTotal() + Number.EPSILON) * 100) / 100}€</span></p>`);
     $("#totalCarrito").append(`<button class='botonCompra'>Comprar</button>`);
   }
 
