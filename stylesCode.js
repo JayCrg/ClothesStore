@@ -55,14 +55,14 @@ function asignarBotones(vista, modelo) {
     vista.vistaFormulario();
     $('.inputs.sign button').click(function () {
       promesa = modelo.signUp();
-      promesa.then(res=>res.json()).then(json=>{
-        if($('.inputs.sign input[type="password"]').val() == 'undefined' || $('.inputs.sign input[type="password"]').val() == null || $('.inputs.sign input[type="password"]').val() == '')
+      promesa.then(res => res.json()).then(json => {
+        if ($('.inputs.sign input[type="password"]').val() == 'undefined' || $('.inputs.sign input[type="password"]').val() == null || $('.inputs.sign input[type="password"]').val() == '')
           vista.mostrarMensajeError()
-        if(json.id == 1 || json.id == 11)
+        if (json.id == 1 || json.id == 11)
           vista.mostarMensajeBienvenida()
       })
     });
-    $('.inputs.sign button').click(function () {});
+    $('.inputs.sign button').click(function () { });
   });
 
 }
@@ -78,13 +78,14 @@ function desplegarMenu(modelo, vista) {
       vista.ocultarCarga();
       vista.vistaProductos(json, 'SeeProducts', modelo.getOrden());
       interaccionProductos(modelo, vista, promesa);
+      reordenar(modelo, vista);
     });
   });
 }
 
-function desplegarProductos(vista, modelo,  boton, promesa,) {
+function desplegarProductos(vista, modelo, boton, promesa,) {
   let id
-  if(typeof boton == 'string')
+  if (typeof boton == 'string')
     id = boton;
   else
     id = boton.attr("id");
@@ -146,7 +147,7 @@ function desplegarCarrito(modelo, vista) {
       vista.numeroDeObjetosEnCarrito(modelo.getCarrito());
       vista.vistaCarrito(modelo);
       $('main').empty();
-      desplegarCarrito(modelo,vista);
+      desplegarCarrito(modelo, vista);
       if (modelo.getCarrito() == '') {
         $("main").empty();
         vista.vistaCarritoVacio();
@@ -161,7 +162,7 @@ function desplegarCarrito(modelo, vista) {
       vista.numeroDeObjetosEnCarrito(modelo.getCarrito());
       vista.vistaCarrito(modelo);
       $('main').empty();
-      desplegarCarrito(modelo,vista);
+      desplegarCarrito(modelo, vista);
       if (modelo.getCarrito() == '') {
         $("main").empty();
         vista.vistaCarritoVacio();
@@ -172,36 +173,36 @@ function desplegarCarrito(modelo, vista) {
   }
 }
 
-function reordenar(modelo, vista){
+function reordenar(modelo, vista) {
   $('#orden').change(function () {
     modelo.setOrden($(this).val());
     modelo.savePreferencias();
     vista.mostrarCarga()
-    if($('main').attr('id') == 'prHombre'){
+    if ($('main').attr('id') == 'prHombre') {
       vista.mostrarCarga()
       promesa = modelo.getHombres(modelo.getOrden());
       $("main").empty();
       desplegarProductos(vista, modelo, 'hombre', promesa);
     }
-    if($('main').attr('id') == 'prMujer'){
+    if ($('main').attr('id') == 'prMujer') {
       vista.mostrarCarga()
       promesa = modelo.getMujeres(modelo.getOrden());
       $("main").empty();
       desplegarProductos(vista, modelo, 'mujer', promesa);
     }
-    if($('main').attr('id') == 'prElectro'){
+    if ($('main').attr('id') == 'prElectro') {
       vista.mostrarCarga()
       promesa = modelo.getMujeres(modelo.getOrden());
       $("main").empty();
       desplegarProductos(vista, modelo, 'electro', promesa);
     }
-    if($('main').attr('id') == 'prJoyeria'){
+    if ($('main').attr('id') == 'prJoyeria') {
       vista.mostrarCarga()
       promesa = modelo.getMujeres(modelo.getOrden());
       $("main").empty();
       desplegarProductos(vista, modelo, 'joyeria', promesa);
     }
-    if($('main').attr('id') == 'prGeneral'){
+    if ($('main').attr('id') == 'prGeneral') {
       vista.mostrarCarga()
       promesa = modelo.getProductos(modelo.getOrden());
       $("main").empty();
@@ -319,23 +320,23 @@ class Vista {
   vistaProductos(json, categoria, orden = 'asc') {
     $('main').attr('class', 'productos');
     let titulo;
-    if (categoria == 'SeeProducts'){
+    if (categoria == 'SeeProducts') {
       titulo = 'Our <span class="color">Products</span>';
       $('main').attr('id', 'prGeneral');
     }
-    else if (categoria == 'hombre'){
+    else if (categoria == 'hombre') {
       titulo = 'Clothing for <span class="color">men</span>';
       $('main').attr('id', 'prHombre');
     }
-    else if (categoria == 'mujer'){
+    else if (categoria == 'mujer') {
       titulo = 'Clothing for <span class="color">women</span>';
       $('main').attr('id', 'prMujer');
     }
-    else if (categoria == 'joyeria'){
+    else if (categoria == 'joyeria') {
       titulo = '<span class="color">Jewelry</span>';
       $('main').attr('id', 'prJoyeria');
     }
-    else if (categoria == 'electro'){
+    else if (categoria == 'electro') {
       titulo = '<span class="color">Electronic</span> components';
       $('main').attr('id', 'prElectro');
     }
@@ -345,25 +346,26 @@ class Vista {
     $("#presentacion").append(`<div class='ordenar'></div>`);
     $(".ordenar").append(`<span>Order:</span>`);
     $(".ordenar").append(`<select name="orden" id="orden"></select>`);
-    if(orden == 'asc'){
+    if (orden == 'asc') {
       $("#orden").append(`<option value="asc" selected='selected'>Ascending</option>`);
       $("#orden").append(`<option value="desc">Descending</option>`);
     }
-    else{
+    else {
       $("#orden").append(`<option value="asc">Ascending</option>`);
       $("#orden").append(`<option value="desc" selected='selected'>Descending</option>`);
     }
-      this.main.append(`<section id="listadoProductos"></section>`);
-      for (let i = 0; i < json.length; i++) {
-        $("#listadoProductos").append(`<article class='producto' id='${json[i].id}'></article>`);
-        $(`#${json[i].id}`).append(`<div class='imagenProducto ${json[i].id}'></div>`);
-        $(`.imagenProducto.${json[i].id}`).append(`<img src="${json[i].image}" alt="${json[i].title}">`);
-        $(`#${json[i].id}`).append(`<h2>${json[i].title}</h2>`);
-        $(`#${json[i].id}`).append(`<p>Price: ${json[i].price}€</p>`);
-      }
+    this.main.append(`<section id="listadoProductos"></section>`);
+    for (let i = 0; i < json.length; i++) {
+      $("#listadoProductos").append(`<article class='producto' id='${json[i].id}'></article>`);
+      $(`#${json[i].id}`).append(`<div class='imagenProducto ${json[i].id}'></div>`);
+      $(`.imagenProducto.${json[i].id}`).append(`<img src="${json[i].image}" alt="${json[i].title}">`);
+      $(`#${json[i].id}`).append(`<h2>${json[i].title}</h2>`);
+      $(`#${json[i].id}`).append(`<p>Price: ${json[i].price}€</p>`);
     }
+  }
 
   vistaDetalle(json) {
+    console.log(json);
     $('main').attr('class', 'detalle');
     this.main.append(`<section id="especificaciones"></section>`);
     $("#especificaciones").append(`<div class='imagenProducto'></div>`);
@@ -371,6 +373,7 @@ class Vista {
     $("#especificaciones").append(`<div class='textoProducto'></div>`);
     $(".textoProducto").append(`<h1>${json.title}</h1>`);
     $(".textoProducto").append(`<p>${json.price}€</p>`);
+    $(".textoProducto").append(`<p>${json.rating['rate']}<i class="fa-solid fa-star"></i> (${json.rating['count']})</p>`)
     $(".textoProducto").append(`<p>${json.description}</p>`);
     if (json.category.includes('clothing')) {
       $(".textoProducto").append(`<select class="tallas"></select>`);
@@ -383,24 +386,25 @@ class Vista {
 
   vistaCarrito(modelo) {
     $('main').attr('class', 'carrito');
-    this.main.append(`<section><h1>Tu <span class="color">carrito</span></h1></section>`);
+    this.main.append(`<section><h1>Your <span class="color">cart</span></h1></section>`);
     this.main.append(`<section id="listadoCarrito"></section>`);
     for (let i = 0; i < modelo.getCarrito().length; i++) {
       $("#listadoCarrito").append(`<article class='producto' id='${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}'></article>`);
       $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<div class='imagenProductoCarrito ${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}'></div>`);
-      $(`.imagenProducto.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<img src="${modelo.getCarrito()[i].image}" alt="${modelo.getCarrito()[i].nombre}">`);
+      $(`.imagenProductoCarrito.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<img src="${modelo.getCarrito()[i].imagen}" alt="${modelo.getCarrito()[i].nombre}">`);
       $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<div class="info ${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}"></div>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<h2>${modelo.getCarrito()[i].nombre}</h2>`);
-      $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p>${modelo.getCarrito()[i].talla}</p>`);
+      if (modelo.getCarrito()[i].talla != '')
+        $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p>Size: ${modelo.getCarrito()[i].talla}</p>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p>${modelo.getCarrito()[i].precio}</p>`);
-      $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='cantProd'>${modelo.getCarrito()[i].cantidad}</p>`);
+      $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='cantProd'>Quantity: ${modelo.getCarrito()[i].cantidad}</p>`);
       $(`.info.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<div class="cambiarCantidad ${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}"></div>`);
       $(`.cambiarCantidad.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='restar' title='Restar Unidad'><i class="fa-solid fa-minus"></i></p>`);
       $(`.cambiarCantidad.${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='sumar'title='Sumar Unidad'><i class="fa-solid fa-plus"></i></p>`);
       $(`#${modelo.getCarrito()[i].id}-${modelo.getCarrito()[i].talla}`).append(`<p class='eliminar' title='Eliminar Producto'><i class="fa-solid fa-trash"></i></p>`);
     }
     this.main.append(`<section id="totalCarrito"></section>`);
-    $("#totalCarrito").append(`<p>Total: ${Math.round((modelo.getCarritoTotal() + Number.EPSILON) * 100) / 100}`);
+    $("#totalCarrito").append(`<p>${Math.round((modelo.getCarritoTotal() + Number.EPSILON) * 100) / 100}`);
     $("#totalCarrito").append(`<button class='botonCompra'>Comprar</button>`);
   }
 
@@ -411,7 +415,7 @@ class Vista {
     $('#listadoCarritoVacio').append(`<p>Why don't we go and look for something pretty?</p>`);
   }
 
-  vistaFormulario(){
+  vistaFormulario() {
     $('main').attr('class', 'formulario');
     (this.main).append(`<div id=login></div>`);
     $('#login').append(`<section><h1>Already have an account? <span class='color'>Log in</span></h1></section>`);
@@ -420,8 +424,8 @@ class Vista {
     $('.inputs.login').append(`<input type="password" name="password" id="passwordsign" placeholder="Password" required>`);
     $('.inputs.login').append(`<button>Send</button>`);
     // $('.inputs.login').append(`<div class='welcome login'>Welcome you <span class='color'>Favourite Store</span></div>`);
-    
-    
+
+
     this.main.append(`<div id='signup'></div>`);
     $('#signup').append(`<section><h1>Don't you have any account yet? <span class="color">Sign Up</span></h1></section>`);
     $('#signup').append(`<section class='inputs sign'></section>`);
@@ -433,23 +437,23 @@ class Vista {
     $('.inputs.sign').append(`<button>Send</button>`);
     $('.inputs.sign').append(`<div class='error sign'>Try inserting a Password</div>`);
   }
-  mostarMensajeBienvenida(){
+  mostarMensajeBienvenida() {
     $('.welcome.sign').css('display', 'block');
     $('.welcome.sign').css('opacity', '1');
 
-    setTimeout(function(){
+    setTimeout(function () {
       $('.welcome.sign').css('opacity', '0');
-      setTimeout(function(){
+      setTimeout(function () {
         $('.welcome.sign').css('display', 'none');
       }, 1000);
     }, 3000);
   }
-  mostrarMensajeError(){
+  mostrarMensajeError() {
     $('.error.sign').css('display', 'block');
     $('.error.sign').css('opacity', '1');
-    setTimeout(function(){
+    setTimeout(function () {
       $('.error.sign').css('opacity', '0');
-      setTimeout(function(){
+      setTimeout(function () {
         $('.error.sign').css('display', 'none');
       }, 1000);
     }, 3000);
@@ -600,32 +604,32 @@ class Modelo {
     }
   }
   signUp() {
-    return fetch('https://fakestoreapi.com/users',{
-            method:"POST",
-            body:JSON.stringify(
-                {
-                    email:'John@gmail.com',
-                    username:'johnd',
-                    password: 'm38rmF$',
-                    name:{
-                        firstname:'John',
-                        lastname:'Doe'
-                    },
-                    address:{
-                        city:'kilcoole',
-                        street:'7835 new road',
-                        number:3,
-                        zipcode:'12926-3874',
-                        geolocation:{
-                            lat:'-37.3159',
-                            long:'81.1496'
-                        }
-                    },
-                    phone:'1-570-236-7033'
-                }
-            )
-        })
-      }
+    return fetch('https://fakestoreapi.com/users', {
+      method: "POST",
+      body: JSON.stringify(
+        {
+          email: 'John@gmail.com',
+          username: 'johnd',
+          password: 'm38rmF$',
+          name: {
+            firstname: 'John',
+            lastname: 'Doe'
+          },
+          address: {
+            city: 'kilcoole',
+            street: '7835 new road',
+            number: 3,
+            zipcode: '12926-3874',
+            geolocation: {
+              lat: '-37.3159',
+              long: '81.1496'
+            }
+          },
+          phone: '1-570-236-7033'
+        }
+      )
+    })
+  }
 }
 
 class ObjetoComprado {
