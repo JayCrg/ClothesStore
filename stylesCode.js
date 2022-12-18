@@ -58,8 +58,10 @@ function asignarBotones(vista, modelo) {
       promesa.then(res => res.json()).then(json => {
         if ($('.inputs.sign input[type="password"]').val() == 'undefined' || $('.inputs.sign input[type="password"]').val() == null || $('.inputs.sign input[type="password"]').val() == '')
           vista.mostrarMensajeError()
-        if (json.id == 1 || json.id == 11)
+        else if (json.id == 1 || json.id == 11){
+          console.log('Usuario registrado')
           vista.mostarMensajeBienvenida()
+        }
       })
     });
     $('.inputs.sign button').click(function () { });
@@ -101,9 +103,11 @@ function desplegarProductos(vista, modelo, boton, promesa,) {
 function interaccionProductos(modelo, vista, promesa) {
   $('.producto').click(function () { ///vamos al detalle del producto
     id = $(this).attr("id");
+    vista.mostrarCarga()
     promesa = modelo.getProducto(id);
     $("main").empty();
     promesa.then(res => res.json()).then(json => {
+      vista.ocultarCarga()
       vista.vistaDetalle(json);
       $('.textoProducto button').click(function () {
         let talla = $('.textoProducto select').val();
@@ -123,9 +127,12 @@ function desplegarCarrito(modelo, vista) {
   } else {
     vista.vistaCarrito(modelo);
     $('.botonCompra').click(function () {
-      modelo.comprarCarrito();
+      modelo.vaciarCarrito()
       $("main").empty();
       desplegarCarrito(modelo, vista);
+      vista.numeroDeObjetosEnCarrito(modelo.getCarrito());
+      vista.cambiarVisibilidadIconoTienda();
+      modelo.saveCarrito();
     });
     $('.eliminar').click(function () {
       duplaAux = ($(this).parent().attr("id"));
@@ -133,6 +140,8 @@ function desplegarCarrito(modelo, vista) {
       modelo.deleteFromCarrito(dupla[0], dupla[1]);
       vista.borrarPorId(dupla[0], dupla[1]);
       vista.numeroDeObjetosEnCarrito(modelo.getCarrito());
+      $("main").empty();
+      desplegarCarrito(modelo, vista);
       if (modelo.getCarrito() == '') {
         $("main").empty();
         vista.vistaCarritoVacio();
@@ -410,7 +419,7 @@ class Vista {
 
   vistaCarritoVacio() {
     $('main').attr('class', 'carrito');
-    this.main.append(`<section><h1>Tu <span class="color">carrito</span></h1></section>`);
+    this.main.append(`<section><h1>Your <span class="color">cart</span></h1></section>`);
     this.main.append(`<section id="listadoCarritoVacio"><h2>There's nothing to see here yet</h2></section>`);
     $('#listadoCarritoVacio').append(`<p>Why don't we go and look for something pretty?</p>`);
   }
@@ -429,34 +438,19 @@ class Vista {
     this.main.append(`<div id='signup'></div>`);
     $('#signup').append(`<section><h1>Don't you have any account yet? <span class="color">Sign Up</span></h1></section>`);
     $('#signup').append(`<section class='inputs sign'></section>`);
-    this.main.append(`<div class='welcome sign'>Welcome back to your <span class='color'>Favourite Store</span></div>`);
     $('.inputs.sign').append(`<input type="text" name="nombre" id="nombre" required placeholder='Name'>`);
     $('.inputs.sign').append(`<input type="password" name="password" id="password" placeholder='Password' required>`);
     $('.inputs.sign').append(`<input type="email" name="email" placeholder='Email' id="email" required pattern="${this.pattern}">`);
     $('.inputs.sign').append(`<input type="tel" name="telefono" pattern="[0-9]{9}" id="telefono" required placeholder='Phone Number'>`);
     $('.inputs.sign').append(`<button>Send</button>`);
     $('.inputs.sign').append(`<div class='error sign'>Try inserting a Password</div>`);
+    $('.inputs.sign').append(`<div class='welcome sign'>Welcome back to your <span class='color'>Favourite Store</span></div>`);
   }
   mostarMensajeBienvenida() {
-    $('.welcome.sign').css('display', 'block');
-    $('.welcome.sign').css('opacity', '1');
-
-    setTimeout(function () {
-      $('.welcome.sign').css('opacity', '0');
-      setTimeout(function () {
-        $('.welcome.sign').css('display', 'none');
-      }, 1000);
-    }, 3000);
+    $('.welcome.sign').addClass('iniciado');
   }
   mostrarMensajeError() {
-    $('.error.sign').css('display', 'block');
-    $('.error.sign').css('opacity', '1');
-    setTimeout(function () {
-      $('.error.sign').css('opacity', '0');
-      setTimeout(function () {
-        $('.error.sign').css('display', 'none');
-      }, 1000);
-    }, 3000);
+    $('.error.sign').addClass('iniciado');
   }
 
 
